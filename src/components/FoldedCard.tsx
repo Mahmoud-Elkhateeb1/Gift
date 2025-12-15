@@ -69,7 +69,67 @@ const FoldedCard = () => {
   }, []);
 
   return (
-    <div className="flex items-center justify-center min-h-screen perspective-1000">
+    <div className="flex flex-col items-center justify-center min-h-screen perspective-1000">
+      <div className="relative mb-[60px] flex items-center justify-center gap-3 px-4">
+        {/* Birthday emojis with floating animation */}
+        <span
+          className="text-3xl animate-float"
+          style={{ animationDelay: '0s' }}
+        >
+          🎂
+        </span>
+        <span
+          className="text-3xl animate-float"
+          style={{ animationDelay: '0.5s' }}
+        >
+          🎉
+        </span>
+
+        {/* Main birthday text */}
+        <div className="birthday-text handwritten text-3xl md:text-4xl leading-relaxed tracking-wide font-bold px-4">
+          Happy Birthday to you Salma
+        </div>
+
+        {/* More birthday emojis */}
+        <span
+          className="text-3xl animate-float"
+          style={{ animationDelay: '1s' }}
+        >
+          🎈
+        </span>
+        <span
+          className="text-3xl animate-float"
+          style={{ animationDelay: '1.5s' }}
+        >
+          🎁
+        </span>
+
+        {/* Sparkle effects */}
+        <span
+          className="absolute -top-2 -left-2 text-2xl animate-sparkle"
+          style={{ animationDelay: '0s' }}
+        >
+          ✨
+        </span>
+        <span
+          className="absolute -top-2 -right-2 text-2xl animate-sparkle"
+          style={{ animationDelay: '1s' }}
+        >
+          ⭐
+        </span>
+        <span
+          className="absolute -bottom-2 left-1/4 text-2xl animate-sparkle"
+          style={{ animationDelay: '0.5s' }}
+        >
+          💫
+        </span>
+        <span
+          className="absolute -bottom-2 right-1/4 text-2xl animate-sparkle"
+          style={{ animationDelay: '1.5s' }}
+        >
+          ✨
+        </span>
+      </div>
       <div
         className={cn(
           "relative w-80 h-96 cursor-pointer transition-transform duration-700 ease-out",
@@ -153,17 +213,19 @@ const FoldedCard = () => {
 
             <div className="relative z-10 text-center space-y-4">
               <p className="handwritten text-xl leading-relaxed tracking-wide text-card-foreground">
-                When you feel sad, remember that
+                It's the birthday of the kindest person in
+                {/* <br /> */}
+                the company! Happy birthday,
+                {/* <br /> */}
+                may God bless you and grant you many
+                {/* <br /> */}
+                more happy and successful years.This is a
+                {/* <br /> */}
+                small gift I spent all night making;
                 <br />
-                you are a very kind and beautiful
+                I hope you like it.That's all.
                 <br />
-                person with a pure heart, and be
-                <br />
-                sure that we all love you and
-                <br />
-                always wish you well. Finally,
-                <br />
-                be happy❤️🫰.
+                Finally,always be happy ❤️🫰.
               </p>
 
               {/* Small heart */}

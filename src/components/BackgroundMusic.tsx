@@ -1,12 +1,11 @@
 // BackgroundMusic.tsx
-// Copy-paste ready. Replace `/music/background.mp3` with your actual audio file path or URL.
 // This component uses a plain HTMLAudioElement (far more reliable on mobile than forcing the YouTube iframe API).
 // It handles play/pause (must be started by user gesture), mute/unmute, stable event handling, and mobile quirks.
 
 import React, { useEffect, useRef, useState } from "react";
 import { Play, Pause, Volume2, VolumeX } from "lucide-react";
 
-const AUDIO_SRC = "/music/background.mp3"; // ← Replace with your file or public URL (or import and use the imported path)
+const AUDIO_SRC = "/music/5ih2sfkczhhevk37u0v9.mp3";
 
 interface BackgroundMusicProps {
   autoPlay?: boolean; // When true, automatically start playing

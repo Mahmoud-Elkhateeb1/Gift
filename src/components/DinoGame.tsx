@@ -10,8 +10,8 @@ const DinoGame = ({ onWin }: DinoGameProps) => {
   const [score, setScore] = useState(0);
   const [isGameOver, setIsGameOver] = useState(false);
   const gameStateRef = useRef({
-    catY: 200,
-    catVelocity: 0,
+    duckY: 200,
+    duckVelocity: 0,
     isJumping: false,
     obstacles: [] as { x: number; emoji: string }[],
     gameSpeed: 5,
@@ -29,17 +29,17 @@ const DinoGame = ({ onWin }: DinoGameProps) => {
     if (!ctx) return;
 
     const GROUND_Y = 250;
-    const CAT_WIDTH = 40;
-    const CAT_HEIGHT = 40;
+    const DUCK_WIDTH = 40;
+    const DUCK_HEIGHT = 40;
     const GRAVITY = 0.6;
     const JUMP_POWER = -12;
 
     let animationFrameId: number;
 
-    const drawCat = () => {
+    const drawDuck = () => {
       ctx.fillStyle = "#ff69b4";
       ctx.font = "40px Arial";
-      ctx.fillText("🐱", 50, gameStateRef.current.catY);
+      ctx.fillText("🦆", 50, gameStateRef.current.duckY);
     };
 
     const drawObstacles = () => {
@@ -66,10 +66,10 @@ const DinoGame = ({ onWin }: DinoGameProps) => {
     };
 
     const checkCollision = () => {
-      const catLeft = 50;
-      const catRight = catLeft + CAT_WIDTH;
-      const catBottom = gameStateRef.current.catY;
-      const catTop = catBottom - CAT_HEIGHT;
+      const duckLeft = 50;
+      const duckRight = duckLeft + DUCK_WIDTH;
+      const duckBottom = gameStateRef.current.duckY;
+      const duckTop = duckBottom - DUCK_HEIGHT;
 
       for (const obstacle of gameStateRef.current.obstacles) {
         const obstacleLeft = obstacle.x;
@@ -78,10 +78,10 @@ const DinoGame = ({ onWin }: DinoGameProps) => {
         const obstacleBottom = GROUND_Y;
 
         if (
-          catRight > obstacleLeft &&
-          catLeft < obstacleRight &&
-          catBottom > obstacleTop &&
-          catTop < obstacleBottom
+          duckRight > obstacleLeft &&
+          duckLeft < obstacleRight &&
+          duckBottom > obstacleTop &&
+          duckTop < obstacleBottom
         ) {
           return true;
         }
@@ -96,14 +96,14 @@ const DinoGame = ({ onWin }: DinoGameProps) => {
       ctx.fillStyle = "#1a1a2e";
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-      // Update cat position (gravity)
-      gameStateRef.current.catVelocity += GRAVITY;
-      gameStateRef.current.catY += gameStateRef.current.catVelocity;
+      // Update duck position (gravity)
+      gameStateRef.current.duckVelocity += GRAVITY;
+      gameStateRef.current.duckY += gameStateRef.current.duckVelocity;
 
       // Ground collision
-      if (gameStateRef.current.catY >= GROUND_Y) {
-        gameStateRef.current.catY = GROUND_Y;
-        gameStateRef.current.catVelocity = 0;
+      if (gameStateRef.current.duckY >= GROUND_Y) {
+        gameStateRef.current.duckY = GROUND_Y;
+        gameStateRef.current.duckVelocity = 0;
         gameStateRef.current.isJumping = false;
       }
 
@@ -147,7 +147,7 @@ const DinoGame = ({ onWin }: DinoGameProps) => {
 
       // Draw everything
       drawGround();
-      drawCat();
+      drawDuck();
       drawObstacles();
       drawScore();
 
@@ -158,7 +158,7 @@ const DinoGame = ({ onWin }: DinoGameProps) => {
 
     const handleJump = (e: KeyboardEvent | MouseEvent | TouchEvent) => {
       e.preventDefault(); // Prevent default touch behavior
-      
+
       if (e instanceof KeyboardEvent && e.code !== "Space") return;
 
       if (isGameOver) {
@@ -166,8 +166,8 @@ const DinoGame = ({ onWin }: DinoGameProps) => {
         return;
       }
 
-      if (!gameStateRef.current.isJumping && gameStateRef.current.catY >= GROUND_Y) {
-        gameStateRef.current.catVelocity = JUMP_POWER;
+      if (!gameStateRef.current.isJumping && gameStateRef.current.duckY >= GROUND_Y) {
+        gameStateRef.current.duckVelocity = JUMP_POWER;
         gameStateRef.current.isJumping = true;
       }
     };
@@ -177,10 +177,10 @@ const DinoGame = ({ onWin }: DinoGameProps) => {
       if (animationFrameId) {
         cancelAnimationFrame(animationFrameId);
       }
-      
+
       gameStateRef.current = {
-        catY: 200,
-        catVelocity: 0,
+        duckY: 200,
+        duckVelocity: 0,
         isJumping: false,
         obstacles: [],
         gameSpeed: 5,
@@ -189,7 +189,7 @@ const DinoGame = ({ onWin }: DinoGameProps) => {
       };
       setIsGameOver(false);
       setScore(0);
-      
+
       // Start game loop again
       requestAnimationFrame(gameLoop);
     };
@@ -211,7 +211,7 @@ const DinoGame = ({ onWin }: DinoGameProps) => {
   return (
     <div className="min-h-screen bg-background flex items-center justify-center flex-col gap-6 p-4">
       <div className="text-center space-y-2">
-        <h1 className="text-4xl font-bold text-foreground mb-2">Cat Jump Game 🐱</h1>
+        <h1 className="text-4xl font-bold text-foreground mb-2">Duck Jump Game 🦆</h1>
         <p className="text-muted-foreground">
           Press SPACE or TAP to jump over ribbons 🎀
         </p>
@@ -229,7 +229,7 @@ const DinoGame = ({ onWin }: DinoGameProps) => {
           style={{ touchAction: 'none' }}
         />
         {isGameOver && (
-          <div 
+          <div
             className="absolute inset-0 bg-black/70 backdrop-blur-sm rounded-lg flex items-center justify-center cursor-pointer"
             onClick={() => {
               const canvas = canvasRef.current;
